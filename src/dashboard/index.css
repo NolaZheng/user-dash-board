@@ -1,0 +1,9 @@
+.dialog-bottom .p-dialog-header {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.p-dialog-header-icons {
+  position: absolute;
+  right: 25px;
+}
