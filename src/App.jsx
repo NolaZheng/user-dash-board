@@ -5,14 +5,14 @@ import 'primeicons/primeicons.css' //icons
 
 import { Routes, Route } from 'react-router-dom'
 import { Home } from './dashboard/screen/home'
-// import { UserInfo } from './user-info/screen'
+import { UserInfo } from './user-info/screen'
 
 function App() {
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="user-info" element={<UserInfo />} /> */}
+        <Route path="user-info" element={<UserInfo />} />
       </Routes>
     </div>
   )
