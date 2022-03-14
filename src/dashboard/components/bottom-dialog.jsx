@@ -1,11 +1,11 @@
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import ClipboardJS from 'clipboard'
 
 import { Dialog } from 'primereact/dialog'
-import { Button } from 'primereact/button'
 import { Toast } from 'primereact/toast'
 
 import '../index.css'
+import { BottomButton } from '../../components/bottom-button'
 
 const invitationCode = 'Homexin1314520'
 
@@ -13,26 +13,18 @@ export const BottomDialog = () => {
   const toast = useRef(null)
   const clipboard = new ClipboardJS('.clipboard-btn')
 
-  clipboard.on('success', _ => {
-    if (toast.current) {
-      toast.current.show({
-        severity: 'success',
-        summary: 'Success',
-        detail: '成功複製推薦碼',
-        life: 3000,
-      })
-    }
-  })
-
-  const Footer = (
-    // TODO: custom Button UI
-
-    <Button
-      className="clipboard-btn"
-      label="點我複製推薦碼"
-      data-clipboard-text={invitationCode}
-    />
-  )
+  useEffect(() => {
+    clipboard.on('success', _ => {
+      if (toast.current) {
+        toast.current.show({
+          severity: 'success',
+          summary: 'Success',
+          detail: '成功複製推薦碼',
+          life: 3000,
+        })
+      }
+    })
+  }, [])
 
   return (
     <>
@@ -41,7 +33,13 @@ export const BottomDialog = () => {
         header="我的推薦碼"
         position="bottom"
         visible
-        footer={Footer}
+        footer={
+          <BottomButton
+            className="clipboard-btn"
+            label="點我複製推薦碼"
+            data-clipboard-text={invitationCode}
+          />
+        }
         closable={false}
         className="dialog-bottom"
         style={{ margin: 0 }}

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { LinkButton } from '../components/link-button'
-import { InfoCard } from '../components/info-card'
+import { InfoCard } from '../../components/info-card'
 import { Announcement } from '../components/announcement'
 import { ScrollPanel } from 'primereact/scrollpanel'
 import { Dialog as Popup } from 'primereact/dialog'
@@ -10,8 +10,10 @@ import { BottomDialog } from '../components/bottom-dialog'
 import trophy from '../../asset/trophy.svg'
 import cv from '../../asset/cv.svg'
 import moneyBag from '../../asset/money-bag.svg'
+import { useNavigate } from 'react-router-dom'
 
 export const Home = () => {
+  const navigate = useNavigate()
   const [popupTarget, setPopupTarget] = useState()
   const buttons = [
     {
@@ -19,7 +21,7 @@ export const Home = () => {
       image: cv,
       size: 'small',
       onClick: () => {
-        window.location.href = '/user-info'
+        navigate('user-info', { state: { title: '會員資訊', image: cv } })
       },
     },
     {
@@ -41,9 +43,9 @@ export const Home = () => {
   ]
 
   return (
-    <div>
+    <div style={styles.container}>
       <ScrollPanel style={styles.scrollPanel}>
-        <InfoCard />
+        <InfoCard title="李珊珊" showStatus />
         <Announcement />
         <div style={styles.linkButtons}>
           {buttons.map(b => (
@@ -74,6 +76,9 @@ export const Home = () => {
 }
 
 const styles = {
+  container: {
+    width: '100%',
+  },
   scrollPanel: {
     display: 'flex',
     flexDirection: 'column',
