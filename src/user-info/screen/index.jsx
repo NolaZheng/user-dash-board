@@ -24,7 +24,6 @@ export const UserInfo = () => {
       <div style={styles.card}>
         <InfoCard title={title} image={image} />
       </div>
-
       <ScrollPanel style={styles.scrollPanel}>
         {editMode ? (
           <EditForm />

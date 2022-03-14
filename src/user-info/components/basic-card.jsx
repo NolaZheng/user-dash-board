@@ -41,6 +41,9 @@ export const BasicCard = ({ data, onEditClick }) => (
       <Row title="銀行帳號" value={data.beneficiary.account} />
     </div>
     <BottomButton label="修改資料" onClick={onEditClick} />
+    <p style={styles.note}>
+      註: 灰色字體為您修改的新資料，待管理員審核完成後即會變回黑色。
+    </p>
   </div>
 )
 
@@ -69,5 +72,11 @@ const styles = {
   },
   rowValue: {
     fontSize: 17,
+  },
+  note: {
+    color: 'red',
+    fontSize: 15,
+    textAlign: 'left',
+    marginTop: 30,
   },
 }
