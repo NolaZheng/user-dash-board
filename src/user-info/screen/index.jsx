@@ -12,11 +12,15 @@ export const UserInfo = () => {
   const { state } = useLocation()
   const { title, image } = state
 
-  const [data, setData] = useState()
+  const [data, setData] = useState({})
+  const [originalData, setOriginalData] = useState({})
   const [editMode, setEditMode] = useState(false)
 
   useEffect(() => {
-    getDataFromServer().then(d => setData(d))
+    getDataFromServer().then(d => {
+      setData(d)
+      setOriginalData(d)
+    })
   }, [])
 
   return (
@@ -26,9 +30,17 @@ export const UserInfo = () => {
       </div>
       <ScrollPanel style={styles.scrollPanel}>
         {editMode ? (
-          <EditForm data={data} leaveEditMode={() => setEditMode(false)} />
+          <EditForm
+            data={data}
+            onFormSubmit={d => setData(d)}
+            leaveEditMode={() => setEditMode(false)}
+          />
         ) : data ? (
-          <BasicCard data={data} onEditClick={() => setEditMode(!editMode)} />
+          <BasicCard
+            data={data}
+            originalData={originalData}
+            onEditClick={() => setEditMode(!editMode)}
+          />
         ) : (
           <></>
         )}

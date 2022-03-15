@@ -27,6 +27,7 @@ const styles = {
     fontSize: 17,
     marginRight: 18,
     paddingBottom: 5,
+    fontWeight: 500,
   },
   inputContainer: {
     display: 'flex',
@@ -37,5 +38,6 @@ const styles = {
   unit: {
     paddingLeft: 5,
     whiteSpace: 'nowrap',
+    fontWeight: 500,
   },
 }

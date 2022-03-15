@@ -1,8 +1,14 @@
-export const ActionButton = ({ label, position, onClick, disabled }) => {
+export const ActionButton = ({
+  label,
+  position,
+  onClick,
+  disabled,
+  ...props
+}) => {
   const styles = disabled ? disabledStyles : defaultStyles
 
   return (
-    <a onClick={onClick} disabled={disabled}>
+    <button onClick={onClick} disabled={disabled} {...props}>
       <div style={styles.container}>
         {position === 'left' && (
           <div style={styles.arrow}>
@@ -16,7 +22,7 @@ export const ActionButton = ({ label, position, onClick, disabled }) => {
           </div>
         )}
       </div>
-    </a>
+    </button>
   )
 }
 const defaultStyles = {
