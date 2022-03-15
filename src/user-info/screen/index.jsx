@@ -26,7 +26,7 @@ export const UserInfo = () => {
       </div>
       <ScrollPanel style={styles.scrollPanel}>
         {editMode ? (
-          <EditForm />
+          <EditForm data={data} leaveEditMode={() => setEditMode(false)} />
         ) : data ? (
           <BasicCard data={data} onEditClick={() => setEditMode(!editMode)} />
         ) : (

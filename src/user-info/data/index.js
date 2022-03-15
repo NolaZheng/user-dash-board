@@ -8,7 +8,7 @@ const data = {
     region: '台北市',
   },
   contact: {
-    phone: ' 0934-324-772',
+    phone: '0934-324-772',
   },
   beneficiary: {
     code: '812',
