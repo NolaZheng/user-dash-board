@@ -5,3 +5,11 @@
   display: flex;
   align-items: stretch;
 }
+
+ol {
+  margin-left: 1em;
+}
+
+ol li {
+  list-style-position: outside;
+}
