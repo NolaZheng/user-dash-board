@@ -1,10 +1,11 @@
-export const Block = ({ label, unit, children }) => {
+export const Block = ({ label, unit, error, children }) => {
   return (
-    <div style={styles.container}>
+    <div style={{ ...styles.container, marginBottom: error ? 35 : 15 }}>
       <div style={styles.label}>{label}</div>
       <div style={styles.inputContainer}>
         {children}
         {unit && <span style={styles.unit}>{unit}</span>}
+        <div style={styles.error}>{error}</div>
       </div>
     </div>
   )
@@ -34,10 +35,15 @@ const styles = {
     flex: 3,
     justifyContent: 'flex-start',
     alignItems: 'center',
+    position: 'relative',
   },
   unit: {
     paddingLeft: 5,
     whiteSpace: 'nowrap',
     fontWeight: 500,
+  },
+  error: {
+    position: 'absolute',
+    bottom: -20,
   },
 }
