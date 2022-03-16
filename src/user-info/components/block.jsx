@@ -18,6 +18,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 15,
+    position: 'relative',
   },
   label: {
     display: 'flex',

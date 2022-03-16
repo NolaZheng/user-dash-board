@@ -1,8 +1,13 @@
-export const CloseButton = () => (
-  <a href="/" style={styles.button}>
-    <i className="pi pi-times" style={styles.icon} />
-  </a>
-)
+import { useNavigate } from 'react-router-dom'
+
+export const CloseButton = () => {
+  const navigate = useNavigate()
+  return (
+    <button style={styles.button} onClick={() => navigate('/')}>
+      <i className="pi pi-times" style={styles.icon} />
+    </button>
+  )
+}
 
 const styles = {
   button: {

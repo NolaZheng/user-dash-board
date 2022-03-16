@@ -24,7 +24,6 @@ submit {
   border: 1px solid #ced1d5;
   box-sizing: border-box;
   filter: drop-shadow(0px 0px 8px rgba(37, 40, 43, 0.12));
-  border-radius: 8px;
 }
 
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
@@ -46,7 +45,17 @@ submit {
   background-color: white !important;
 }
 
+.datepicker.ios {
+  transform: translateY(-50px);
+}
+
 .p-dialog .p-dialog-footer {
   border-bottom-right-radius: 6px;
   border-bottom-left-radius: 6px;
+}
+
+.p-dropdown-panel .p-dropdown-items {
+  padding: 0;
+  max-height: 300px;
+  right: 0;
 }

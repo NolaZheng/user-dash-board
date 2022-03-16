@@ -1,21 +1,50 @@
 import React, { useRef, useState } from 'react'
+import DatePicker from 'react-mobile-datepicker'
 import dateFormat from 'dateformat'
+
 import { useForm, Controller } from 'react-hook-form'
 import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown'
 import { Notice } from './notice'
 import { ActionButton } from './action-button'
 import { Block } from './block'
-import '../form.css'
 import { Dialog } from 'primereact/dialog'
-import DatePicker from 'react-mobile-datepicker'
 import { classNames } from 'primereact/utils'
+import { useImageUpload } from '../hook/image-upload'
+
+import '../form.css'
+
+const regions = [
+  { value: '台北市' },
+  { value: '新北市' },
+  { value: '桃園市' },
+  { value: '臺中市' },
+  { value: '臺南市' },
+  { value: '高雄市' },
+  { value: '新竹縣' },
+  { value: '苗栗縣' },
+  { value: '彰化縣' },
+  { value: '南投縣' },
+  { value: '雲林縣' },
+  { value: '嘉義縣' },
+  { value: '屏東縣' },
+  { value: '宜蘭縣' },
+  { value: '花蓮縣' },
+  { value: '臺東縣' },
+  { value: '澎湖縣' },
+  { value: '金門縣' },
+  { value: '連江縣' },
+  { value: '基隆市' },
+  { value: '新竹市' },
+  { value: '嘉義市' },
+]
 
 export const EditForm = ({ data, onFormSubmit, leaveEditMode }) => {
   const [displayDialog, setDisplayDialog] = useState()
   const { name, birthday, height, weight, region, phone, code, account } = data
   const selectedBirthday = useRef(new Date(birthday))
 
+  //#region form
   const {
     control,
     formState: { errors, isDirty, dirtyFields, isValid },
@@ -36,6 +65,33 @@ export const EditForm = ({ data, onFormSubmit, leaveEditMode }) => {
       errors[name] && <small className="p-error">{errors[name].message}</small>
     )
   }
+  //#end region
+
+  //#region image upload
+  const { image, upload } = useImageUpload()
+  //#end region
+
+  //#region dropdown
+  const selectedCountryTemplate = option => {
+    if (option) {
+      return (
+        <div className="country-item country-item-value">
+          <div>{option.value}</div>
+        </div>
+      )
+    }
+
+    return <span>{region}</span>
+  }
+
+  const countryOptionTemplate = option => {
+    return (
+      <div className="country-item">
+        <div>{option.value}</div>
+      </div>
+    )
+  }
+  //#end region
 
   return (
     <div style={styles.container}>
@@ -61,14 +117,19 @@ export const EditForm = ({ data, onFormSubmit, leaveEditMode }) => {
           />
         </Block>
         {showImageUploadArea && (
-          <div>
-            <button
-              type="button"
-              style={styles.imageUpload}
-              // onClick={() => setDisplayDialog(true)}
-            >
-              點擊上傳身分證照
-            </button>
+          <div style={styles.imageUpload}>
+            {image ? (
+              <img
+                style={{ height: '100%', width: '100%' }}
+                src={image}
+                alt="upload-data"
+              />
+            ) : (
+              <>
+                點擊上傳身分證照
+                <input type="file" style={styles.inputFile} onChange={upload} />
+              </>
+            )}
           </div>
         )}
         <Block label="出生年月日" error={getFormErrorMessage('birthday')}>
@@ -203,7 +264,7 @@ export const EditForm = ({ data, onFormSubmit, leaveEditMode }) => {
             )}
           />
         </Block>
-        <Block label="主要服務縣市">
+        <Block label="主要服務縣市" error={getFormErrorMessage('region')}>
           <Controller
             defaultValue={region}
             name="region"
@@ -213,8 +274,15 @@ export const EditForm = ({ data, onFormSubmit, leaveEditMode }) => {
               <Dropdown
                 id={field.name}
                 value={field.value}
+                options={regions}
                 onChange={e => field.onChange(e.value)}
-                options={['台北市', '新北市']}
+                optionLabel="value"
+                filter
+                filterBy="value"
+                placeholder="Search"
+                emptyFilterMessage="查無地區"
+                valueTemplate={selectedCountryTemplate}
+                itemTemplate={countryOptionTemplate}
                 style={styles.input}
               />
             )}
@@ -353,6 +421,7 @@ const styles = {
     border: '1px dashed #767676',
     borderRadius: 5,
     marginBottom: 16,
+    textAlign: 'center',
   },
   dialog: {
     width: '70vw',
@@ -363,5 +432,11 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     padding: '20px 0px',
+  },
+  inputFile: {
+    height: '100%',
+    width: '100%',
+    opacity: 0,
+    position: 'absolute',
   },
 }
